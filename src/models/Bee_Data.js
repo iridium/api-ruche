@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const BeeDataSchema = new mongoose.Schema({
-    poids: {
+    weight: {
         type: Number,
         required: true,
     },

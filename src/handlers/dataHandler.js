@@ -20,11 +20,11 @@ module.exports = {
     },
 
     post: (req, res, next) => {
-        if(req.body.poids === undefined || req.body.temp === undefined || req.body.humidity === undefined) {
+        if(req.body.weight === undefined || req.body.temp === undefined || req.body.humidity === undefined) {
             return next(new createError.BadRequest("Missing data"));
         } else {
             let newData = new beeModel({ // TODO : A sanetiser!
-                poids: req.body.poids,
+                poids: req.body.weight,
                 temp: req.body.temp,
                 humidity: req.body.humidity,
             });
