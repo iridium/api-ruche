@@ -1,46 +1,46 @@
-const orderModel = require("@models/Bee_Data");
+const beeModel = require("@models/Bee_Data");
 const createHttpError = require("http-errors");
 const createError = require("http-errors");
 
 module.exports = {
 
     getAll: (req, res, next) => { // récuperer toutes les commandes
-        orderModel.find().lean().exec((err, doc) => {
+        beeModel.find().lean().exec((err, doc) => {
             res.json(doc);
         });
     },
 
     getOne: (req, res, next) => {
-        let orderId = req.params.orderId;
+        let dataId = req.params.dataId;
 
-        orderModel.findById(orderId).populate("orders").lean().exec((err, doc) => {
+        beeModel.findById(dataId).lean().exec((err, doc) => {
             if (err) return next(new createError.NotFound());
             res.json(doc);
         });
     },
 
-    post: (req, res, next) => {/*
-        if(req.body.title === undefined || req.body.content === undefined) {
-            return next(new createError.BadRequest("title or content missing"));
+    post: (req, res, next) => {
+        if(req.body.poids === undefined || req.body.temp === undefined || req.body.humidity === undefined) {
+            return next(new createError.BadRequest("Missing data"));
         } else {
-            let newIssue = new issueModel({ // TODO : A sanetiser!
-                author: req.user._id,
-                title: req.body.title,
-                content: req.body.content,
+            let newData = new beeModel({ // TODO : A sanetiser!
+                poids: req.body.poids,
+                temp: req.body.temp,
+                humidity: req.body.humidity,
             });
 
-            newIssue.save(err => {
+            newData.save(err => {
                 if (err) return next(new createHttpError.InternalServerError(err));
             });//TODO check if error ?
-            res.status(201).redirect("/issues/"+ newIssue._id);
+            res.status(201).send();
         }
         
-    */},
+    },
 
     delete: (req, res, next) => {
-        let orderId = req.params.orderId; //TODO sanitize
+        let dataId = req.params.dataId; //TODO sanitize
 
-        orderId.findByIdAndDelete(orderId).exec((err, doc) => {
+        beeModel.findByIdAndDelete(dataId).exec((err, doc) => {
             if (err) return next(new createError.InternalServerError(err.message)); //TODO pas forcement 500 (404)
 
             res.status(204).end();

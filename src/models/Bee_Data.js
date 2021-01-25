@@ -15,6 +15,6 @@ const BeeDataSchema = new mongoose.Schema({
     }
 }, {timestamps: true});
 
-const BeeDataModel = mongoose.model("order", BeeDataSchema);
+const BeeDataModel = mongoose.model("BeeData", BeeDataSchema);
 
 module.exports = BeeDataModel;
