@@ -1,3 +1,4 @@
+//dépendances
 require("module-alias/register");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
@@ -5,10 +6,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const fs = require("fs");
 
-dotenv.config();
+dotenv.config(); // init .env
 
-let mongodb_url = "mongodb://localhost";
-let serv_port = 3000;
+let mongodb_url = process.env.MONGODB_URL || "mongodb://localhost";
+let serv_port = process.env.PORT || 3000;
 
 mongoose.connect(mongodb_url, {
     useCreateIndex: true,
@@ -26,8 +27,10 @@ app.use((req, res, next) => {
     next();
 });
 
-const rootRouter = new express.Router();
+const rootRouter = new express.Router(); 
 
+
+//définition des routes
 fs.readdirSync("./src/routes").forEach(filename => {
     let file = require("@routes/" + filename);
     rootRouter.use("/" + file.prefix, file.router);

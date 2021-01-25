@@ -1,5 +1,5 @@
 const Router = require("express").Router;
-const ordersHandler = require("@handlers/orders");
+const dataHandler = require("@handlers/dataHandler");
 //const commentsHandler = require("@handlers/comments");
 //const authenticated = require("@middlewares/authenticated");
 //const authorized = require("@middlewares/authorized");
@@ -7,15 +7,15 @@ const ordersHandler = require("@handlers/orders");
 const orders = Router();
 
 orders.route("/")
-    .get(                            ordersHandler.getAll)
-    .post(                           ordersHandler.post);
+    .get(                            dataHandler.getAll)
+    .post(                           dataHandler.post);
 
 orders.route("/:orderId")
-    .get(                            ordersHandler.getOne)
-    .delete(                         ordersHandler.delete);
+    .get(                            dataHandler.getOne)
+    .delete(                         dataHandler.delete);
 
 //    orders.get("/:issueId/comments",       commentsHandler.getAllbyIssue);
 
 //orders.get("/:issueId/comments",       commentsHandler.getAllbyIssue);
 
-module.exports = {prefix: "orders", router: orders};
+module.exports = {prefix: "data", router: data};

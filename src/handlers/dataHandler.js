@@ -1,4 +1,4 @@
-const orderModel = require("@models/order");
+const orderModel = require("@models/Bee_Data");
 const createHttpError = require("http-errors");
 const createError = require("http-errors");
 
